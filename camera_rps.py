@@ -12,9 +12,15 @@ def get_prediction():
     model = load_model('keras_model.h5')
     cap = cv2.VideoCapture(0)
     data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
-    start_time = time.time()
-
-    while start_time < start_time + 15: 
+    
+'''     labels = []
+    with open("labels.txt") as file:
+        for line in file:
+            labels.append(line)
+        
+    print(labels)
+ '''
+    while True: 
         ret, frame = cap.read()
         resized_frame = cv2.resize(frame, (224, 224), interpolation = cv2.INTER_AREA)
         image_np = np.array(resized_frame)
@@ -62,5 +68,6 @@ def play():
     user_pred = get_prediction()
     print(f"you chose {user_pred}")
     get_winner(user_pred,comp_choice)
+
 
 play()
