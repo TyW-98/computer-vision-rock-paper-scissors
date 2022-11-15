@@ -20,41 +20,48 @@ def get_prediction():
         
     # print(labels)
     
-    start_counter = time.time()
-    end_counter= time.time() + 15
-    print(start_counter-end_counter)
+    time_added = 15
+    current_time = time.time()
+    end_time = time.time() + time_added
+
     
-    while True:        
-        ret, frame = cap.read()
-        
-        resized_frame = cv2.resize(frame, (224, 224), interpolation = cv2.INTER_AREA)
-        image_np = np.array(resized_frame)
-        normalized_image = (image_np.astype(np.float32) / 127.0) - 1 # Normalize the image
-        data[0] = normalized_image
-        prediction = model.predict(data)
-        if np.argmax(prediction) == 0:
-            user_choice = "nothing"
-        elif np.argmax(prediction) == 1:
-            user_choice = "rock"
-        elif np.argmax(prediction) == 2:
-            user_choice = "paper"
-        else:
-            user_choice = "scissors"
+    while True:
+        current_time = time.time()
+        ret, frame = cap.read() 
         cv2.imshow('frame', frame)
-        # Press q to close the window
-        print(prediction)
-        print(user_choice)
-        start_counter = time.time()
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
         
-        if end_counter - start_counter == 15:
+        if end_time - current_time <= 0.05 and end_time - current_time > 0:
+            print("shoot")
+            ret, frame = cap.read() 
+            resized_frame = cv2.resize(frame, (224, 224), interpolation = cv2.INTER_AREA)
+            image_np = np.array(resized_frame)
+            normalized_image = (image_np.astype(np.float32) / 127.0) - 1 # Normalize the image
+            data[0] = normalized_image
+            prediction = model.predict(data)
+            if np.argmax(prediction) == 0:
+                user_choice = "nothing"
+            elif np.argmax(prediction) == 1:
+                user_choice = "rock"
+            elif np.argmax(prediction) == 2:
+                user_choice = "paper"
+            else:
+                user_choice = "scissors"
+            cv2.imshow('frame', frame)
+            # Press q to close the window
+            print(prediction)
+            print(user_choice)
+            #print(end_time- current_time)
+        elif end_time - current_time <= 0 or cv2.waitKey(1) & 0xFF == ord('q'):
             break
+        elif end_time - current_time <= 5 and end_time - current_time > 0.1:
+            print(end_time - current_time)
+        
+        
         
         # After the loop release the cap object
-    cap.release()
+    #cap.release()
     # Destroy all the windows
-    cv2.destroyAllWindows()    
+    #cv2.destroyAllWindows()    
             
     return user_choice
 
@@ -67,15 +74,15 @@ def get_winner(user_choice,computer_choice):
         print("You won!")
     elif user_choice == "paper" and computer_choice == "rock":
         print("You won!")
-    elif user_choice == computer_choice:        print("It is a tie!")
+    elif user_choice == computer_choice:      
+        print("It is a tie!")
     else:
         print("You lost")
         
 def play():
     comp_choice = get_computer_choice()
-    print(comp_choice)
     user_pred = get_prediction()
-    print(f"you chose {user_pred}")
+    print(f"you chose {user_pred} and computer chose {comp_choice}")
     get_winner(user_pred,comp_choice)
 
 
