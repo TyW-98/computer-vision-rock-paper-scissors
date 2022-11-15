@@ -7,3 +7,5 @@ This project allows users to play rock paper scissors against a computer, where 
 
 ## Keras model loss graph
 <img src = images/Loss_graph.png width = "350">
+
+Keras model trained using [Teachable-machine](https://teachablemachine.withgoogle.com/) 

@@ -13,15 +13,20 @@ def get_prediction():
     cap = cv2.VideoCapture(0)
     data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
     
-'''     labels = []
-    with open("labels.txt") as file:
-        for line in file:
-            labels.append(line)
+    # labels = []
+    # with open("labels.txt") as file:
+    #     for line in file:
+    #         labels.append(line)
         
-    print(labels)
- '''
-    while True: 
+    # print(labels)
+    
+    start_counter = time.time()
+    end_counter= time.time() + 15
+    print(start_counter-end_counter)
+    
+    while True:        
         ret, frame = cap.read()
+        
         resized_frame = cv2.resize(frame, (224, 224), interpolation = cv2.INTER_AREA)
         image_np = np.array(resized_frame)
         normalized_image = (image_np.astype(np.float32) / 127.0) - 1 # Normalize the image
@@ -39,12 +44,16 @@ def get_prediction():
         # Press q to close the window
         print(prediction)
         print(user_choice)
+        start_counter = time.time()
         if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+        
+        if end_counter - start_counter == 15:
             break
         
         # After the loop release the cap object
     cap.release()
-# Destroy all the windows
+    # Destroy all the windows
     cv2.destroyAllWindows()    
             
     return user_choice
@@ -71,3 +80,4 @@ def play():
 
 
 play()
+
