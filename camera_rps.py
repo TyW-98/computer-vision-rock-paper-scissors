@@ -108,14 +108,15 @@ def play():
             user_score += 1
             print(f'Your score is {user_score} and the computer score is {computer_score}')
             if user_score == 3:
+                print("You have won")
                 break
         elif winner[1] == 1:
             computer_score += 1
             print(f'Your score is {user_score} and the computer score is {computer_score}')
             if computer_score == 3:
+                print("The computer have won")
                 break
-            
-            
+                
     cap.release()
     cv2.destroyAllWindows()  
             
