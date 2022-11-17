@@ -87,6 +87,7 @@ def get_winner(user_choice,computer_choice):
         return [user_wins, computer_wins]
     elif user_choice == "nothing":
         print("You did not show anything")
+        return [user_wins, computer_wins]
     else:
         print("You lost")
         computer_wins += 1
@@ -116,6 +117,8 @@ def play():
             if computer_score == 3:
                 print("The computer have won")
                 break
+        elif winner[0] == 0 and winner[1] == 0:
+            pass
                 
     cap.release()
     cv2.destroyAllWindows()  
