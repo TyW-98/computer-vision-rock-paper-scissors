@@ -10,4 +10,4 @@ This project allows users to play rock paper scissors against a computer, where 
 
 Keras model trained using [Teachable-machine](https://teachablemachine.withgoogle.com/) 
 
-<span style = "color:lightgreen"> Testing font coloring </span>
+<span style = "color:lightgreen"> **Testing font coloring** </span>
