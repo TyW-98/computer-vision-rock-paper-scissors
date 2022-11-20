@@ -23,15 +23,23 @@ def get_prediction():
     time_added = 15
     current_time = time.time()
     end_time = time.time() + time_added
-
+    font = cv2.FONT_HERSHEY_COMPLEX
+    text_x_loc = int((cap.get(cv2.CAP_PROP_FRAME_WIDTH)/2)-70)
+    text_y_loc = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT)/2)
+    
     while True:
-        current_time = time.time()
         ret, frame = cap.read() 
-        cv2.imshow('frame', frame)
+        current_time = time.time()
+        if end_time - current_time >= time_added - 2 and end_time - current_time >= time_added/2:
+            cv2.putText(frame, "Start", (text_x_loc,text_y_loc),font,2,(51, 153, 255),2)
+        elif end_time - current_time <= time_added/2 and end_time - current_time >= 0.9:
+            cv2.putText(frame, str(round(end_time - current_time,0)),(text_x_loc,text_y_loc), font, 2, (0,0,255),2)
+        elif end_time - current_time <= 0.85 and end_time - current_time > 0:
+            cv2.putText(frame,"Shoot",(text_x_loc,text_y_loc), font, 2, (0,0,255),2)
+        elif end_time - current_time > 0:
+            cv2.putText(frame, str(round(end_time - current_time,0)), (text_x_loc,text_y_loc),font,2,(51, 153, 255),2)
         
         if end_time - current_time <= 0.05 and end_time - current_time > -0.05:
-            print("shoot")
-            ret, frame = cap.read() 
             resized_frame = cv2.resize(frame, (224, 224), interpolation = cv2.INTER_AREA)
             image_np = np.array(resized_frame)
             normalized_image = (image_np.astype(np.float32) / 127.0) - 1 # Normalize the image
@@ -44,23 +52,20 @@ def get_prediction():
             elif np.argmax(prediction) == 2:
                 user_choice = "paper"
             else:
-                user_choice = "scissors"
-            cv2.imshow('frame', frame)
-            # Press q to close the window
+                user_choice = "scissors"                        
             print(prediction)
             print(user_choice)
             #print(end_time- current_time)
-        elif end_time - current_time <= 0 or cv2.waitKey(1) & 0xFF == ord('q'):
+            # Press q to close the window
+        elif end_time - current_time <= -5 or cv2.waitKey(1) & 0xFF == ord('q'):
             break
-        elif end_time - current_time <= 5 and end_time - current_time > 0.1:
-            print(end_time - current_time)
+        elif end_time - current_time <= -0.05:
+            cv2.putText(frame,f"you choose {user_choice}",(text_x_loc-100,text_y_loc),font,1,(51, 153, 255),2)    
+            
         
+
+        cv2.imshow('Rock Paper Scissors Game', frame)
         
-        
-        # After the loop release the cap object
-    #cap.release()
-    # Destroy all the windows
-    #cv2.destroyAllWindows()    
             
     return user_choice
 
@@ -91,12 +96,12 @@ def get_winner(user_choice,computer_choice):
     else:
         print("You lost")
         computer_wins += 1
-        return [user_wins, computer_wins]
+        return [user_wins, computer_wins]   
         
 def play():
+    global cap, model, user_score, computer_score, ret, frame
     user_score = 0
-    computer_score = 0
-    global cap, model
+    computer_score = 0 
     cap = cv2.VideoCapture(0)
     model = load_model('keras_model.h5')
     while True:
@@ -110,13 +115,23 @@ def play():
             print(f'Your score is {user_score} and the computer score is {computer_score}')
             if user_score == 3:
                 print("You have won")
-                break
+                restart_game = input("Do you wan to play again (Y/N): ")
+                if restart_game.lower() == "y":
+                    user_score = 0 
+                    computer_score = 0
+                else:
+                    break
         elif winner[1] == 1:
             computer_score += 1
             print(f'Your score is {user_score} and the computer score is {computer_score}')
             if computer_score == 3:
-                print("The computer have won")
-                break
+                print("You have lost")
+                restart_game = input("Do you wan to play again (Y/N): ")
+                if restart_game.lower() == "y":
+                    user_score = 0 
+                    computer_score = 0
+                else:
+                    break
         elif winner[0] == 0 and winner[1] == 0:
             pass
                 
