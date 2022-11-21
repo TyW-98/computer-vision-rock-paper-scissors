@@ -40,4 +40,46 @@ This project allows users to play rock paper scissors against a computer, where 
     ```
 * Familaries with `RPS-Template.py`
 ## Milestone 4
-* 
+* Created a `get_computer_choice()` function where `random.choice()` was used to randomly pick the computer's choice.
+  
+    ```go
+    def get_computer_choice():
+    comp_choice = random.choice(["rock","paper","scissors"])
+    return comp_choice
+    ```
+* Created a `get_user_choice()` function which uses `input()` to ask user to input their choice of rock,paper or scissors. 
+
+    ```go
+    def get_user_choice():
+    choice = input("Rock, Paper or Scissors? : ")
+    return choice
+    ```
+* Created a `get_winner()` function which uses `get_computer_choice()` and `get_user_choice()` to determine the winner of the round. 
+  * If the user wins, it will print "You Won!". 
+  * If the computer wins, it will print "You Lost"
+  * IF the user and computer chooses the same option, it will print "It is a tie!" 
+
+  ```go
+    def get_winner(user_choice,computer_choice):
+
+    if user_choice == "scissors" and computer_choice== "paper":
+        print("You won!")
+    elif user_choice == "rock" and computer_choice == "scissors":
+        print("You won!")
+    elif user_choice == "paper" and computer_choice == "rock":
+        print("You won!")
+    elif user_choice == computer_choice:
+        print("It is a tie!")
+    else:
+        print("You lost")
+  ```
+* Created a `play()` function to call the three function created. 
+
+    ```go
+    def play():
+    comp_choice = get_computer_choice()
+    print(comp_choice)
+    user_choice = get_user_choice()
+    print(user_choice)
+    get_winner(user_choice,comp_choice)
+    ```
