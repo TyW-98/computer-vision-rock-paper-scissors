@@ -30,13 +30,15 @@ def get_prediction():
     while True:
         ret, frame = cap.read() 
         current_time = time.time()
+        cv2.putText(frame,f"User : Computer",(20,17),font,0.45,(255,153,0),1)
+        cv2.putText(frame,f" {user_score}  :  {computer_score} ",(15,37),font,0.75,(255,153,0),1)
         if end_time - current_time >= time_added - 2 and end_time - current_time >= time_added/2:
-            cv2.putText(frame, "Start", (text_x_loc,text_y_loc),font,2,(51, 153, 255),2)
-        elif end_time - current_time <= time_added/2 and end_time - current_time >= 0.9:
+            cv2.putText(frame, "Start", (text_x_loc,text_y_loc),font,2,(51, 204, 51),2)
+        elif end_time - current_time <= time_added/3 and end_time - current_time >= 0.9:
             cv2.putText(frame, str(round(end_time - current_time,0)),(text_x_loc,text_y_loc), font, 2, (0,0,255),2)
-        elif end_time - current_time <= 0.85 and end_time - current_time > 0:
+        elif end_time - current_time <= 0.9 and end_time - current_time > 0:
             cv2.putText(frame,"Shoot",(text_x_loc,text_y_loc), font, 2, (0,0,255),2)
-        elif end_time - current_time > 0:
+        elif end_time - current_time > 0 and end_time - current_time >= time_added/3:
             cv2.putText(frame, str(round(end_time - current_time,0)), (text_x_loc,text_y_loc),font,2,(51, 153, 255),2)
         
         if end_time - current_time <= 0.05 and end_time - current_time > -0.05:
@@ -59,8 +61,10 @@ def get_prediction():
             # Press q to close the window
         elif end_time - current_time <= -5 or cv2.waitKey(1) & 0xFF == ord('q'):
             break
-        elif end_time - current_time <= -0.05:
-            cv2.putText(frame,f"you choose {user_choice}",(text_x_loc-100,text_y_loc),font,1,(51, 153, 255),2)    
+        elif end_time - current_time <= -0.05 and end_time - current_time >= -5:
+            cv2.putText(frame,f"you choose {user_choice} and computer chose {comp_choice}",(text_x_loc-150,text_y_loc),font,0.55,(153,153,255),1)    
+        #elif end_time - current_time <= -5:
+            #cv2.putText(frame, f'Your score is {user_score} and the computer score is {computer_score}',(text_x_loc-100,text_y_loc),font,0.5,(51, 153, 255),2)
             
         
 
@@ -99,7 +103,7 @@ def get_winner(user_choice,computer_choice):
         return [user_wins, computer_wins]   
         
 def play():
-    global cap, model, user_score, computer_score, ret, frame
+    global cap, model, user_score, computer_score, comp_choice
     user_score = 0
     computer_score = 0 
     cap = cv2.VideoCapture(0)
