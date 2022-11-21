@@ -44,15 +44,15 @@ This project allows users to play rock paper scissors against a computer, where 
   
     ```go
     def get_computer_choice():
-    comp_choice = random.choice(["rock","paper","scissors"])
-    return comp_choice
+        comp_choice = random.choice(["rock","paper","scissors"])
+        return comp_choice
     ```
 * Created a `get_user_choice()` function which uses `input()` to ask user to input their choice of rock,paper or scissors. 
 
     ```go
     def get_user_choice():
-    choice = input("Rock, Paper or Scissors? : ")
-    return choice
+        choice = input("Rock, Paper or Scissors? : ")
+        return choice
     ```
 * Created a `get_winner()` function which uses `get_computer_choice()` and `get_user_choice()` to determine the winner of the round. 
   * If the user wins, it will print "You Won!". 
@@ -77,9 +77,9 @@ This project allows users to play rock paper scissors against a computer, where 
 
     ```go
     def play():
-    comp_choice = get_computer_choice()
-    print(comp_choice)
-    user_choice = get_user_choice()
-    print(user_choice)
-    get_winner(user_choice,comp_choice)
+        comp_choice = get_computer_choice()
+        print(comp_choice)
+        user_choice = get_user_choice()
+        print(user_choice)
+        get_winner(user_choice,comp_choice)
     ```
