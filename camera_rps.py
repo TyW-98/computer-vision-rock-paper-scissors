@@ -31,7 +31,7 @@ def get_prediction():
         ret, frame = cap.read() 
         current_time = time.time()
         cv2.putText(frame,f"User : Computer",(20,17),font,0.45,(255,153,0),1)
-        cv2.putText(frame,f" {user_score}  :  {computer_score} ",(15,37),font,0.75,(255,153,0),1)
+        cv2.putText(frame,f" {user_score}  :  {computer_score} ",(15,40),font,0.75,(255,153,0),2)
         if end_time - current_time >= time_added - 2 and end_time - current_time >= time_added/2:
             cv2.putText(frame, "Start", (text_x_loc,text_y_loc),font,2,(51, 204, 51),2)
         elif end_time - current_time <= time_added/3 and end_time - current_time >= 0.9:
@@ -57,12 +57,23 @@ def get_prediction():
                 user_choice = "scissors"                        
             print(prediction)
             print(user_choice)
+            winner = get_winner(user_choice,comp_choice)
             #print(end_time- current_time)
             # Press q to close the window
-        elif end_time - current_time <= -5 or cv2.waitKey(1) & 0xFF == ord('q'):
+        elif end_time - current_time <= -10.1 or cv2.waitKey(1) & 0xFF == ord('q'):
             break
         elif end_time - current_time <= -0.05 and end_time - current_time >= -5:
             cv2.putText(frame,f"you choose {user_choice} and computer chose {comp_choice}",(text_x_loc-150,text_y_loc),font,0.55,(153,153,255),1)    
+        elif end_time - current_time <= -5 and end_time - current_time >= -10: 
+            if winner[0] == 1 and winner[1] == 1:
+                cv2.putText(frame,"You did not show anything",(text_x_loc-140,text_y_loc),font,1,(204,51,0),1)
+            elif winner[0] == 1:
+                cv2.putText(frame,"You won this round",(text_x_loc-100,text_y_loc),font,1,(204,51,0),1)
+            elif winner[0] == 0 and winner[1] == 0:
+                cv2.putText(frame,"It is a draw",(text_x_loc-50,text_y_loc),font,1,(204,51,0),1)
+            else:
+                cv2.putText(frame,"You lost this round",(text_x_loc-100,text_y_loc),font,1,(204,51,0),1)
+            
         #elif end_time - current_time <= -5:
             #cv2.putText(frame, f'Your score is {user_score} and the computer score is {computer_score}',(text_x_loc-100,text_y_loc),font,0.5,(51, 153, 255),2)
             
@@ -96,6 +107,8 @@ def get_winner(user_choice,computer_choice):
         return [user_wins, computer_wins]
     elif user_choice == "nothing":
         print("You did not show anything")
+        user_wins += 1
+        computer_wins += 1
         return [user_wins, computer_wins]
     else:
         print("You lost")
@@ -114,7 +127,9 @@ def play():
         print(f"you chose {user_pred} and computer chose {comp_choice}")
         winner = get_winner(user_pred,comp_choice)
         print(winner)
-        if winner[0] == 1:
+        if winner[0] == 1 and winner[1] == 1:
+            pass
+        elif winner[0] == 1:
             user_score += 1
             print(f'Your score is {user_score} and the computer score is {computer_score}')
             if user_score == 3:
