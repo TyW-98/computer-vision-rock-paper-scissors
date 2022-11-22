@@ -1,6 +1,6 @@
 # Computer Vision Rock Paper Scissors Project
 
-This project allows users to play rock paper scissors against a computer, where a camera is used to take in user's choice. 
+This project allows users to play rock paper scissors against a computer, where a camera is used to take in user's choice. The input from the camera is then feed into an image classifier model to determine whether the user's choice is rock, paper, scissors or nothing.
 ## Milestone 1
 * Setup of Github repository to store project files. 
 
