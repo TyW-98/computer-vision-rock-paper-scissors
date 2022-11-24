@@ -203,4 +203,7 @@ This project allows users to play rock paper scissors against a computer, where 
         cap.release()
         cv2.destroyAllWindows()   
         ```
-* Added countdown timer display on capture window 
+* Added countdown timer display on capture window.
+* Allow the user to replay after either the user or computer has won.
+* Added scoreboard on the top left corner of the capture window.
+* Added display to show the result of the round. 
