@@ -134,7 +134,7 @@ def play():
             print(f'Your score is {user_score} and the computer score is {computer_score}')
             if user_score == 3:
                 print("You have won")
-                restart_game = input("Do you wan to play again (Y/N): ")
+                restart_game = input("Do you want to play again (Y/N): ")
                 if restart_game.lower() == "y":
                     user_score = 0 
                     computer_score = 0
@@ -145,7 +145,7 @@ def play():
             print(f'Your score is {user_score} and the computer score is {computer_score}')
             if computer_score == 3:
                 print("You have lost")
-                restart_game = input("Do you wan to play again (Y/N): ")
+                restart_game = input("Do you want to play again (Y/N): ")
                 if restart_game.lower() == "y":
                     user_score = 0 
                     computer_score = 0
