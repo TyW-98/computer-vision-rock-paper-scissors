@@ -13,8 +13,7 @@ class rps:
         self.cap = cv2.VideoCapture(0)
         self.model = load_model("keras_model.h5")
         
-        if __name__ == "__main__":
-            self.play()
+        self.play()
         
     def get_computer_choice(self):
         self.comp_choice = random.choice(["rock","paper","scissors"])
@@ -138,5 +137,7 @@ class rps:
         
         self.cap.release()
         cv2.destroyAllWindows()
-        
-play1 = rps()     
+
+
+if __name__ == "__main__":
+    play1 = rps()   
