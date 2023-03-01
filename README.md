@@ -1,6 +1,6 @@
 # **Rock Paper Scissors Game using Computer Vision**
 The "Rock Paper Scissors" game is a classic game that has been enjoyed by people of all ages for generations. In this project, we have developed a Python program that allows you to play this game against a computer using a webcam. The game utilises computer vision to recognise your hand gestures. This is done by using OpenCV library to capture the video frames from your webcam, and then pre-process them to feed into a pre-trained image classification model developed using [Teachable-machine](https://teachablemachine.withgoogle.com/). The computer's choice is randomly selected, and the winner is determined according to the rules of the game.
-## Prerequisites
+## Dependencies
 * Python 3.x
 * OpenCV2 
 * Keras
