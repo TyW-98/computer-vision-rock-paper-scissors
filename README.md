@@ -187,7 +187,7 @@ if __name__ == "__main__":
 ```
 
 ## Milestone 1
-* Established a Github repository to version control project files
+* Establish a Github repository to version control project files
 
 ## Milestone 2
 * Created an image classification model using [Teachable-machine](https://teachablemachine.withgoogle.com/) to classify images into four distinct classes:
